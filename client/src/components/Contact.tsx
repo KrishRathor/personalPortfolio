@@ -12,7 +12,7 @@ const FreelancerContact: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-[#1A1B21] p-4 md:p-6 rounded-lg shadow-md text-white">
+    <div className="w-full bg-[#1A1B21] p-4 md:p-6 mb-2 rounded-lg shadow-md text-white">
       <h2 className="text-lg md:text-xl font-bold mb-2">Want to hire me as a freelancer? Let's discuss.</h2>
       <p className="text-xs md:text-sm mb-4">
         Drop your message and let's discuss about your project.

@@ -23,7 +23,7 @@ const Header = () => {
 
       <div className="flex-shrink-0 flex justify-center md:justify-end w-full md:w-auto">
         <a
-          href="https://twitter.com/mannupaaji"
+          href="https://x.com/KrishRathor18"
           target="_blank"
           rel="noopener noreferrer"
           className="block overflow-hidden rounded shadow-xl ring-1 ring-slate-900/5 bg-white h-20 w-20"
