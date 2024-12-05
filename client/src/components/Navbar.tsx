@@ -1,4 +1,5 @@
-import React, { SetStateAction } from "react";
+import React, { useState, SetStateAction } from "react";
+import { Menu, X } from "lucide-react";
 
 function Navbar({
   selectedItem,
@@ -7,50 +8,71 @@ function Navbar({
   selectedItem: string;
   setSelectedItem: React.Dispatch<SetStateAction<string>>;
 }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuItems = ["Home", "Blogs", "Projects", "Contact"];
+
+  const handleItemClick = (item: string) => {
+    setSelectedItem(item);
+    setIsMenuOpen(false);
+  };
+
   return (
-    <div className="w-[20vw] border border-white rounded-full py-[4px] mt-8 mb-8">
-      <ul className="flex justify-evenly">
-        <li
-          className={`${
-            selectedItem === "Home" && "text-blue-700"
-          } cursor-pointer`}
-          onClick={() => {
-            setSelectedItem("Home");
-          }}
+    <div className="relative">
+      {/* Mobile Hamburger */}
+      <div className="md:hidden flex justify-end p-4">
+        <button 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="z-50 relative"
         >
-          Home
-        </li>
-        <li
-          className={`${
-            selectedItem === "Blogs" && "text-blue-700"
-          } cursor-pointer`}
-          onClick={() => {
-            setSelectedItem("Blogs");
-          }}
+          {isMenuOpen ? (
+            <X className="text-white" size={24} />
+          ) : (
+            <Menu className="text-white" size={24} />
+          )}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/80 z-40 flex flex-col justify-center items-center 
+          transition-opacity duration-300 ease-in-out"
         >
-          Blogs
-        </li>
-        <li
-          className={`${
-            selectedItem === "Projects" && "text-blue-700"
-          } cursor-pointer`}
-          onClick={() => {
-            setSelectedItem("Projects");
-          }}
-        >
-          Projects
-        </li>
-        <li
-          className={`${
-            selectedItem === "Contact" && "text-blue-700"
-          } cursor-pointer`}
-          onClick={() => {
-            setSelectedItem("Contact");
-          }}
-        >
-          Contact
-        </li>
-      </ul>
+          <nav className="space-y-6">
+            {menuItems.map((item) => (
+              <div 
+                key={item}
+                onClick={() => handleItemClick(item)}
+                className={`
+                  text-2xl font-light cursor-pointer text-center
+                  transition-colors duration-300
+                  ${selectedItem === item ? 'text-blue-500' : 'text-white hover:text-blue-300'}
+                `}
+              >
+                {item}
+              </div>
+            ))}
+          </nav>
+        </div>
+      )}
+
+      {/* Desktop Menu */}
+      <div className="hidden md:block w-full max-w-md mx-auto border border-white rounded-full py-1 mt-8 mb-8">
+        <ul className="flex justify-evenly">
+          {menuItems.map((item) => (
+            <li
+              key={item}
+              className={`
+                cursor-pointer 
+                ${selectedItem === item ? "text-blue-700" : ""}
+              `}
+              onClick={() => handleItemClick(item)}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

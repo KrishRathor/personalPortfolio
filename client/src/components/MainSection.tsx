@@ -1,6 +1,5 @@
 import React, { SetStateAction, useState } from "react";
 import ProjectCard from "./ProjectCard";
-import { div } from "framer-motion/client";
 import FreelancerContact from "./Contact";
 
 interface IProject {
@@ -39,49 +38,56 @@ const MainSection = ({
   ]);
 
   return (
-    <div>
-      <p className="text-2xl">Recent Blogs</p>
-      {blogs.map((blog) => (
-        <div className="bg-[#27272A] mx-auto cursor-pointer px-2 w-[93%] py-4 rounded-md my-4">
-          {blog}
+    <div className="w-full">
+      {/* Blogs Section */}
+      <section className="mb-8">
+        <p className="text-xl md:text-2xl mb-4">Recent Blogs</p>
+        <div className="space-y-4">
+          {blogs.map((blog, index) => (
+            <div 
+              key={index} 
+              className="bg-[#27272A] w-full px-4 py-4 rounded-md hover:bg-[#2C2C30] transition-colors"
+            >
+              {blog}
+            </div>
+          ))}
         </div>
-      ))}
-      <p
-        className="text-center cursor-pointer"
-        onClick={() => {
-          setSelectedItem("Blogs");
-        }}
-      >
-        {" "}
-        Check Out All Blogs{" "}
-      </p>
+        <p
+          className="text-center cursor-pointer mt-4 text-sm md:text-base hover:text-blue-500 transition-colors"
+          onClick={() => setSelectedItem("Blogs")}
+        >
+          Check Out All Blogs
+        </p>
+      </section>
 
-      <p className="text-2xl my-4">Recent Projects</p>
-      <div className="flex flex-wrap my-4">
-        {projects.map((project) => (
-          <ProjectCard
-            title={project.title}
-            description={project.description}
-            href={project.href}
-            icon={project.icon}
-            tags={project.tags}
-          />
-        ))}
-      </div>
-      <p
-        className="text-center cursor-pointer"
-        onClick={() => {
-          setSelectedItem("Projects");
-        }}
-      >
-        {" "}
-        Check Out All Projects{" "}
-      </p>
+      {/* Projects Section */}
+      <section className="mb-8">
+        <p className="text-xl md:text-2xl my-4">Recent Projects</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {projects.map((project, index) => (
+            <ProjectCard
+              key={index}
+              title={project.title}
+              description={project.description}
+              href={project.href}
+              icon={project.icon}
+              tags={project.tags}
+            />
+          ))}
+        </div>
+        <p
+          className="text-center cursor-pointer mt-4 text-sm md:text-base hover:text-blue-500 transition-colors"
+          onClick={() => setSelectedItem("Projects")}
+        >
+          Check Out All Projects
+        </p>
+      </section>
 
-      <div className="mt-8" >
-        <p className="text-2xl" >Contact</p>
+      {/* Contact Section */}
+      <section className="mt-8">
+        <p className="text-xl md:text-2xl mb-4">Contact</p>
         <FreelancerContact />
-      </div>
+      </section>
     </div>
   );
 };
